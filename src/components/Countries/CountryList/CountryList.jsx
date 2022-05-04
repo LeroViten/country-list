@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCountries } from '../../../services/apiService';
+import * as actions from '../../../store/countries/countries-actions';
+import * as selectors from '../../../store/countries/countries-selectors.js';
 import CountryListItem from '../CountryListItem';
 import Loader from '../../Loader';
 import './CountryList.scss';
 
 export default function CountryList() {
-  const [countries, setCountries] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const visibleCountries = useSelector(selectors.getVisibleCountries);
 
   useEffect(() => {
     let isCancelled = false;
@@ -25,7 +30,7 @@ export default function CountryList() {
     setLoading(true);
 
     const result = await getCountries();
-    setCountries(result);
+    dispatch(actions.addCountries(result));
 
     setLoading(false);
   };
@@ -33,9 +38,9 @@ export default function CountryList() {
   return (
     <div className="listWrapper">
       {loading && <Loader />}
-      {countries && (
+      {visibleCountries && (
         <ul className="list">
-          {countries.map((country) => (
+          {visibleCountries.map((country) => (
             <CountryListItem country={country} key={country.name} />
           ))}
         </ul>
