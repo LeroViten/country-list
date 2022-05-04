@@ -1,0 +1,29 @@
+@import '../../styles/shared.scss';
+
+.filterWrapper {
+  margin-left: 35px;
+  padding: 10px 15px;
+
+  & input {
+    width: 260px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid #777;
+    outline: none;
+  }
+}
+
+.filterSearchBtn {
+  background-color: transparent;
+  border: 1px solid #777;
+  border-radius: 5px;
+  height: 35px;
+  margin-left: 5px;
+  transition: all 300ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.05);
+  }
+}
